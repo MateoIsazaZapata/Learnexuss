@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Planes de lección
+{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="row gx-4">
+        <div class="col-md-8">
+            <div class="bg-white p-3 rounded shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="fw-bold">Planes de lección</h2>
+                    <a href="#" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalCrearPlanDeLeccion">Crear plan de lección</a>
+                </div>
+                    {% if not planes_leccion %}
+                            <h1>No hay planes de lección creados</h1>
+                    {% else %}
+                    <table class="table table-hover w-100">
+                        <thead class="bg-success text-white fs-5">
+                            <tr>
+                                <th>Planes de lección</th>
+                                <th>Area</th>
+                                <th>Tema</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-light">
+                            {% for i in planes_leccion %}
+                                <tr>
+                                    <td>{{ i.plan_leccion }}</td>
+                                    <td>{{i.area}}</td>
+                                    <td>{{i.tema}}</td>
+                                    <td>
+                                        <!-- <a href="#" class="text-primary me-2">Detalles</a> -->
+                                        <a href="{% url 'eliminar_plan' i.pk %}" class="text-danger fw-bold fs-6" onclick="return confirm('¿Está seguro que desea eliminar este plan de lección?')">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                    {% endif %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="d-flex flex-column bg-light p-3 border border-3 rounded"
+                    style="height: 60vh;">
+                    <h1 class="mb-2 text-center fw-bold">Gestión educativa</h1>
+                    <a href="{% url 'nivel_educativo' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Niveles educativos</a>
+                    <a href="{% url 'grados' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Grados</a>
+                    <a href="{% url 'grupos' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Grupos</a>
+                    <a href="{% url 'areas' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Areas</a>
+                    <a href="{% url 'asignaturas' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Asignaturas</a>
+                    <a href="{% url 'temas' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Temas</a>
+                    <a href="{% url 'planes_leccion' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Planes de lección</a>
+                </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalCrearPlanDeLeccion" tabindex="-1" aria-labelledby="tituloModalCrearPlanDeLeccion" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModalCrearPlanDeLeccion">Crear plan de lección</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST" enctype="multipart/form-data" action="{% url 'crear_plan' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{form.plan_leccion.label_tag}}
+                    {{form.plan_leccion}}
+                    {{form.plan_leccion.errors}}
+                </div>
+                <div class="mb-3">
+                    {{form.area.label_tag}}
+                    {{form.area}}
+                    {{form.area.errors}}
+                </div>
+                <div class="mb-3">
+                    {{form.tema.label_tag}}
+                    {{form.tema}}
+                    {{form.tema.errors}}
+                </div>
+                <div class="mb-3">
+                    {{form.archivo_plan.label_tag}}
+                    {{form.archivo_plan}}
+                    {{form.archivo_plan.errors}}
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

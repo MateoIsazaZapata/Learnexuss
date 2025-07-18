@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Grados {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+    <div class="row gx-4">
+        <div class="col-md-8">
+            <div class="bg-white p-3 rounded shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="fw-bold">Grados</h2>
+                    <a href="#" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalCrearGrado">
+                        Crear grado
+                    </a>
+                </div>
+                    {% if not grados %}
+                            <h1>No hay grados creados</h1>
+                    {% else %}
+                    <table class="table table-hover w-100">
+                        <thead class="bg-success text-white fs-5">
+                            <tr>
+                                <th>Grados</th>
+                                <th>Nivel educativo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-light">
+                            {% for i in grados %}
+                                <tr>
+                                    <td>{{ i.grado }}</td>
+                                    <td>{{i.nivel_educativo}}</td>
+                                    <td>
+                                        <a href="{% url 'eliminar_grado' i.pk %}" class="text-danger fw-bold fs-6" onclick="return confirm('¿Está seguro que desea eliminar este grado?')">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                    {% endif %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="d-flex flex-column bg-light p-3 border border-3 rounded"
+                    style="height: 60vh;">
+                    <h1 class="mb-2 text-center fw-bold">Gestión educativa</h1>
+                    <a href="{% url 'nivel_educativo' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Niveles educativos</a>
+                    <a href="{% url 'grados' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Grados</a>
+                    <a href="{% url 'grupos' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Grupos</a>
+                    <a href="{% url 'areas' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Areas</a>
+                    <a href="{% url 'asignaturas' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Asignaturas</a>
+                    <a href="{% url 'temas' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Temas</a>
+                    <a href="{% url 'planes_leccion' %}" class="btn btn-outline-primary mb-2 w-100 fw-bold">Planes de lección</a>
+                </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Modal de creacion de grados-->
+<div class="modal fade" id="modalCrearGrado" tabindex="-1" aria-labelledby="tituloModalGrado" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloModalGrado">Crear grado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'crear_grados' %}">
+                {% csrf_token %}
+                <div>
+                    {{ form.grado.label_tag}}
+                    {{ form.grado }}
+                    {{ form.grado.errors }}
+                </div>
+                <br>
+                <div class="mb-3">
+                    {{ form.nivel_educativo.label_tag }}
+                    {{ form.nivel_educativo }}
+                    {{ form.nivel_educativo.errors }}
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
