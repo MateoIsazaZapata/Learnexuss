@@ -1,0 +1,44 @@
+{% extends "baseRegistro.html" %}
+
+{% load static %}
+
+{% block title %}
+    login
+{% endblock title %}
+
+{% block content  %}
+<div class="container min-vh-100 d-flex align-items-center justify-content-center pt-10">
+    <div class="row w-100 justify-content-center align-items-center">
+
+        <div class="col-12 col-lg-5 mb-4 mb-lg-0 text-center">
+            <img src="{% static 'pictures/logo_not_found.png' %}" alt="Learnexuss" class="img-fluid mb-4" width="200" height="200">
+            <img src="{% static 'pictures/logotipo_not_font.png' %}" alt="Learnexuss" class="img-fluid mb-4" width="500" height="500">
+        </div>
+
+        <div class="col-12 col-lg-5 bg-success-subtle p-4 rounded shadow-sm">
+                <h2 class="text-success display-5 fw-semibold fw-bold text-center">
+                    Iniciar sesión
+                </h2>
+                <form method="POST" action="{% url 'login'%}">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for i in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {{i}}
+                        </div>
+                        {% endfor messages%}
+                    {% endif %}
+                    {{form.email}}
+                    {{form.email.errors}}
+                    <br>
+                    {{form.password}}
+                    {{form.password.errors}}
+                    <br>
+                    <button type="submit" class="btn btn-success w-100">Ingresar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content  %}

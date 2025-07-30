@@ -23,12 +23,12 @@ class UsuarioBase(models.Model):
 
 #REGISTRAR USUARIO Y SUPER USUARIO
 class UsuarioManager(BaseUserManager):
-    def crear_usuario(self, email, contraseña=None, **extra_fields):
+    def crear_usuario(self, email, password=None, **extra_fields):
         if not email:
             raise ValueError('Ingresar correo electronico')
         email = self.normalize_email(email)
         usuario = self.model(email=email, **extra_fields)
-        usuario.set_password(contraseña)
+        usuario.set_password(password)
         usuario.save(using=self._db)
         return usuario
     
@@ -150,7 +150,7 @@ class Asignatura(models.Model):
 #CREACION DE TEMAS
 class Tema(models.Model):
     tema = models.CharField(max_length=50)
-    asignatura_asignada = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
+    asignatura_asignada = models.ForeignKey(Asignatura, on_delete=models.CASCADE, related_name='temas')
     
     def __str__(self):
         return f"{self.tema}"

@@ -57,7 +57,8 @@ ROOT_URLCONF = 'backend_learnexuss.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates/coordinador')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates/coordinador'),
+                os.path.join(BASE_DIR, 'templates/registro_login')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

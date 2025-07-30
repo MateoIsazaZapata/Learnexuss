@@ -1,12 +1,40 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from .models import Aula, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema
-from .forms import NivelEducativoForm, GradoForm, GrupoForm, AreaForm, AsignaturaForm, TemasForm, PlanDeLeccionForm, aulaForm
+from .forms import RegistroForm, LoginForm, NivelEducativoForm, GradoForm, GrupoForm, AreaForm, AsignaturaForm, TemasForm, PlanDeLeccionForm, aulaForm
 
 # Create your views here.
 
-#Interfaz principal
+#------------------INTERFAZ DE REGISTRO Y LOGIN----------------------
+#sesion registro de usuarios
+def vistaRegistro(request):
+    form = RegistroForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Usuario registrado exitosamente')
+        return redirect('registro')
+    
+    return render(request, 'registro.html', {'form': form} )
+
+#Sesion login de usuarios
+def VistaLogin(request):
+    form = LoginForm(request.POST or None)
+    if form.is_valid():
+        email = form.cleaned_data.get('email')
+        password = form.cleaned_data.get('password')
+        usuario = authenticate(request, email=email, password=password)
+        if usuario is not None:
+            login(request, usuario)
+            messages.success(request, 'Inicio de sesion exitoso')
+            return redirect("home")
+        else:
+            messages.error(request, 'Datos invalidos o no coinciden')
+            return redirect('login')
+    return render(request, 'login.html', {'form': form})
+
+#------------------INTERFAZ PRINCIPAL-------------------------
 def home(request):
     form = aulaForm()
     aulas = Aula.objects.all()
@@ -27,6 +55,7 @@ def eliminarAula(request, pk):
     Aula.objects.get(pk=pk).delete()
     messages.success(request, 'Aula eliminada con exito')
     return redirect('home')
+
 
 #---------VISTAS DE MENU DE HERRAMIENTAS DE SECCION PRINCIPAL--------
 #Seccion niveles educativos
@@ -182,6 +211,21 @@ def secc_aula(request, pk):
     aula = Aula.objects.get(pk=pk)
     asignaturas = aula.asignaturas.all()
     return render(request, 'secc_aula.html', {'aula': aula, 'asignaturas': asignaturas})
+
+#Seccion desasignar asignatura de aula
+def desasignarAsignatura(request, pk_aula, pk_asignatura):
+    aula = Aula.objects.get(pk=pk_aula)
+    asignatura = Asignatura.objects.get(pk=pk_asignatura)
+    aula.asignaturas.remove(asignatura)
+    messages.success(request, 'Asignatura desasignada exitosamente')
+    return redirect('seccion_aula', pk=pk_aula)
+
+def secc_asignaturas(request, pk):
+    asignatura = Asignatura.objects.get(pk=pk)
+    tema = asignatura.temas.all()
+    return render(request, 'secc_asignaturas.html', {'asignatura': asignatura, 'tema': tema})
+
+
 
 
 # Nota mental:

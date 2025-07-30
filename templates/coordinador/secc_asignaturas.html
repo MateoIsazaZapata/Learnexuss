@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %} Seccion Aula {% endblock title %}
+{% block title %} Seccion asignaturas {% endblock title %}
 
 {% block content %}
     <div class="container-fluid bg-body-tertiary py-4">
@@ -11,26 +11,28 @@
             <!-- Vista de grupos creados -->
             <div class="col-md-8">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="fw-bold fs-1">Asignaturas {{aula}}</h2>
-                    <a href="#" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalAsignarDocente">
-                        Asignar docentes
+                    <h2 class="fw-bold fs-1">Temas {{asignatura}}</h2>
+                    <a href="#" class="btn btn-success fw-bold">
+                        Regresar
                     </a>
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-around gap-3 p-3 border border-3 rounded"
                     style="min-height: 60vh;">
-                    {% if not asignaturas %}
-                        <h1>No hay asignaturas en esta aula</h1>
+                    {% if not tema %}
+                        <h1>No hay Temas en esta aula</h1>
                     {% else %}
                     <!-- Carta -->
-                        {% for i in asignaturas %}
+                        {% for i in tema %}
                         <div class="card" style="width: 14rem;">
                             <img src="{% static 'pictures/logo_not_found.png' %}" class="card-img-top" alt="Imagen referente al grupo">
                             <div class="card-body">
-                                <h5 class="card-title">{{i.asignatura}}</h5>
+                                <h5 class="card-title">{{i.tema}}</h5>
                                 <p class="card-text"></p>
-                                <a href="{% url 'seccion_asignaturas' i.pk %}" class="btn btn-primary">Ingresar</a>
-                                <a href="{% url 'desasignar_asignatura' aula.pk i.pk %}" class="btn btn-danger" onclick="return confirm('¿Está seguro que desea quitar esta asignatura del aula?')">Quitar</a>
+                                <div class="btn-group d-flex justify-content-center" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-secondary" onclick="window.open('', '_blank')">Light</button>
+                                    <button type="button" class="btn btn-warning">Full</button>
+                                </div>
                             </div>
                         </div>
                         {% endfor %}
@@ -56,4 +58,3 @@
         </div>
     </div>
 {% endblock content %}
-

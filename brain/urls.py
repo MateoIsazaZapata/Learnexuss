@@ -1,11 +1,17 @@
 from .models import Usuario, Pais, Departamento, Ciudad, Rol, TipoDocumento
+from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from .views import home, vistaNivelEducativo, vistaGrados, vistaGrupos, vistaAreas, vistaAsignaturas, vistaTemas, vistaPlanesLeccion, secc_aula
-from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula
+from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro
 from . import views
 
 urlpatterns = [
-    path('', home, name='home'),
+#Seccion registro y login
+    path('registro/', views.vistaRegistro, name='registro'),
+    path('login/', views.VistaLogin, name='login'),
+
+#Seccion principal Aulas
+    path('home/', home, name='home'),
     path('crear_aula/', views.crearAula, name='crear_aula'),
     path('eliminar_aula/<int:pk>', views.eliminarAula, name='eliminar_aula'),
 #Secciones menu gestion educativa
@@ -31,7 +37,8 @@ urlpatterns = [
     path('plan_leccion/crear_plan/', views.crearPlanDeLeccion, name='crear_plan'),
     path('plan_leccion/eliminar_plan/<int:pk>', views.eliminarPlanDeLeccion, name='eliminar_plan'),
 #SECCION INTERIOR DE AULA
-    path('aula/secc_aula/<int:pk>', secc_aula, name='seccion_aula')
-
+    path('aula/secc_aula/<int:pk>/', secc_aula, name='seccion_aula'),
+    path('quitar_asignatura/<int:pk_aula>/<int:pk_asignatura>/', views.desasignarAsignatura, name='desasignar_asignatura'),
+    path('aula/secc_asignaturas/<int:pk>', views.secc_asignaturas, name='seccion_asignaturas'),
 
 ]
