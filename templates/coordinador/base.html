@@ -29,15 +29,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse fw-medium fs-6" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">    
                     <li class="nav-item">
                         <a class="btn btn-success fw-mediu fs-5" href="{% url 'home' %}" role="button">Principal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-success fw-mediu fs-5" href="#" role="button">Docentes</a>
+                        <a class="btn btn-success fw-mediu fs-5" href="{% url 'lista_docentes' %}" role="button">Docentes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-success fw-mediu fs-5" href="#" role="button">Estudiantes</a>
+                        <a class="btn btn-success fw-mediu fs-5" href="{% url 'lista_estudiantes' %}" role="button">Estudiantes</a>
                     </li>
                 </ul>
                 <span>

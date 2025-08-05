@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from .models import Usuario, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema, Aula
+from .models import Usuario, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema, Aula, AsignarDocente
 
 
 #Formulario para registro y logueo de usuarios
@@ -197,5 +197,31 @@ class PlanDeLeccionForm(forms.ModelForm):
             }),
             'archivo_plan': forms.ClearableFileInput(attrs={
                 'class': 'form-control'
+            })
+        }
+
+class AsignacionDocenteForm(forms.ModelForm):
+    class Meta:
+        model = AsignarDocente
+        fields = ['docente', 'asignatura', 'aula']
+        widgets = {
+            'docente': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'asignatura': forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            'aula': forms.Select(attrs={
+                'class': 'form-select'
+            })
+        }
+
+class EstadoDocenteForm(forms.ModelForm):
+    class Meta:
+        model =Usuario
+        fields = ['is_active']
+        widgets = {
+            'is_active': forms.CheckboxInput(attrs={
+                'class': 'form-check-input'
             })
         }

@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Aula, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema
-from .forms import RegistroForm, LoginForm, NivelEducativoForm, GradoForm, GrupoForm, AreaForm, AsignaturaForm, TemasForm, PlanDeLeccionForm, aulaForm
+from .models import Usuario, Aula, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema, AsignarDocente
+from .forms import RegistroForm, LoginForm, NivelEducativoForm, GradoForm, GrupoForm, AreaForm, AsignaturaForm, TemasForm, PlanDeLeccionForm, aulaForm, AsignacionDocenteForm, EstadoDocenteForm
 
 # Create your views here.
 
@@ -220,13 +220,48 @@ def desasignarAsignatura(request, pk_aula, pk_asignatura):
     messages.success(request, 'Asignatura desasignada exitosamente')
     return redirect('seccion_aula', pk=pk_aula)
 
+#Seccion de asignaturas dentro del aula
 def secc_asignaturas(request, pk):
     asignatura = Asignatura.objects.get(pk=pk)
     tema = asignatura.temas.all()
     return render(request, 'secc_asignaturas.html', {'asignatura': asignatura, 'tema': tema})
 
+#Seccion lista de docentes
+def listaDocentes(request):
+    form = AsignacionDocenteForm()
+    asignados = AsignarDocente.objects.select_related('docente', 'asignatura', 'aula').filter(docente__rol__rol='Docente')
+    return render(request, 'lista_docentes.html', {'asignados': asignados, 'form': form})
 
+#Seccion asignar docentes a asignaturas y aulas
+def asignarDocente(request):
+    form = AsignacionDocenteForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Docente asignado exitosamente')
+        return redirect('lista_docentes')
+    return render(request, 'asignar_docente.html', {'form': form})
 
+#Seccion desasignar docente de asignatura y aula
+def desasignarDocente(request, pk):
+    asignacion = get_object_or_404(AsignarDocente, pk=pk)
+    asignacion.delete()
+    messages.success(request, 'Docente desasignado exitosamente')
+    return redirect('lista_docentes')
+
+#Seccion estado del docente
+def estadoDocente(request):
+    form = EstadoDocenteForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Estado del docente actualizado exitosamente')
+        return redirect('lista_docentes')
+    return render(request, 'lista_docentes.html', {'form': form})
+        
+#------------------SECCION DE ESTUDIANTES----------------------
+#Seccion lista estudiantes
+def listaEstudiantes(request):
+    # estudiantes = Usuario.objects.filter(rol__rol='Estudiante')
+    return render(request, 'lista_estudiantes.html')
 
 # Nota mental:
 #     Las secciones como nivel educativo, grado, areas, temas y plan de leccion son

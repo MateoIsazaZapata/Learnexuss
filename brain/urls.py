@@ -2,8 +2,8 @@ from .models import Usuario, Pais, Departamento, Ciudad, Rol, TipoDocumento
 from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from .views import home, vistaNivelEducativo, vistaGrados, vistaGrupos, vistaAreas, vistaAsignaturas, vistaTemas, vistaPlanesLeccion, secc_aula
-from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro
-from . import views
+from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro, asignarDocente, desasignarDocente, estadoDocente, listaEstudiantes
+from . import views 
 
 urlpatterns = [
 #Seccion registro y login
@@ -40,5 +40,11 @@ urlpatterns = [
     path('aula/secc_aula/<int:pk>/', secc_aula, name='seccion_aula'),
     path('quitar_asignatura/<int:pk_aula>/<int:pk_asignatura>/', views.desasignarAsignatura, name='desasignar_asignatura'),
     path('aula/secc_asignaturas/<int:pk>', views.secc_asignaturas, name='seccion_asignaturas'),
-
+#SECCION ASIGNAR DOCENTES A ASIGNATURAS Y AULAS
+    path('docentes/', views.listaDocentes, name='lista_docentes'),
+    path('docentes/asignar_docente/', views.asignarDocente, name='asignar_docente'),
+    path('docentes/desasignar_docente/<int:pk>', views.desasignarDocente ,name='desasignar_docente'),
+    path('docentes/estado_docente/', views.estadoDocente,name='estado_docente'),# PENDIENTE ASIGNACION HASTA AHORA INUTIL
+#SECCION ASIGNACION DE ESTUDIANTES A AULAS
+    path('estudiantes/', views.listaEstudiantes, name='lista_estudiantes')
 ]

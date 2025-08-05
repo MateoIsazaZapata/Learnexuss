@@ -106,7 +106,7 @@ class TipoDocumento(models.Model):
     
 #CREACION DE NIVELES EDUCATIVOS
 class NivelEducativo(models.Model):
-    nivel = models.CharField(max_length=30, unique=True)
+    nivel = models.CharField(max_length=30, unique=True, null=False, blank=False)
     
     def __str__(self):
         return f"{self.nivel}"
@@ -197,3 +197,15 @@ class Aula(models.Model):
 
     def __str__(self):
         return f"{self.grado}- {self.grupo}"
+
+#asignar docente a asignatura
+class AsignarDocente(models.Model):
+    docente = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'rol__rol':'Docente'})
+    asignatura = models.ForeignKey(Asignatura, on_delete=models.CASCADE)
+    aula = models.ForeignKey(Aula, on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('asignatura', 'aula')
+        
+    def __str__(self):
+        return f"{self.docente} - {self.asignatura} ({self.aula})"

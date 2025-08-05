@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from .models import Usuario, Pais, Departamento, Ciudad, Rol, TipoDocumento, NivelEducativo, Grado, Grupo, Area, Asignatura, Tema, Actividad, EntregaActividad, PlanDeLeccion, Aula
+from .models import Usuario, Pais, Departamento, Ciudad, Rol, TipoDocumento, NivelEducativo, Grado, Grupo, Area, Asignatura, Tema, Actividad, EntregaActividad, PlanDeLeccion, Aula, AsignarDocente
 
 # Register your models here.
 
@@ -21,3 +21,4 @@ admin.site.register(Actividad)
 admin.site.register(EntregaActividad)
 admin.site.register(PlanDeLeccion)
 admin.site.register(Aula)
+admin.site.register(AsignarDocente)
