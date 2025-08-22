@@ -216,12 +216,14 @@ class AsignacionDocenteForm(forms.ModelForm):
             })
         }
 
-class EstadoDocenteForm(forms.ModelForm):
+class EstadoDocenteForm(forms.ModelForm): #DEFECTUOSO
     class Meta:
         model =Usuario
         fields = ['is_active']
         widgets = {
             'is_active': forms.CheckboxInput(attrs={
-                'class': 'form-check-input'
-            })
+                'class': 'form-check-input',
+                'role': 'switch',
+                'id': 'switchDocente'
+            }),
         }

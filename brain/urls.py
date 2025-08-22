@@ -2,7 +2,7 @@ from .models import Usuario, Pais, Departamento, Ciudad, Rol, TipoDocumento
 from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from .views import home, vistaNivelEducativo, vistaGrados, vistaGrupos, vistaAreas, vistaAsignaturas, vistaTemas, vistaPlanesLeccion, secc_aula
-from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro, asignarDocente, desasignarDocente, estadoDocente, listaEstudiantes
+from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro, asignarDocente, desasignarDocente, estadoDocente, listaEstudiantes, vistaPerfil, editarPerfil
 from . import views 
 
 urlpatterns = [
@@ -14,6 +14,11 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('crear_aula/', views.crearAula, name='crear_aula'),
     path('eliminar_aula/<int:pk>', views.eliminarAula, name='eliminar_aula'),
+    
+#Seccion Perfil
+    path('perfil/', views.vistaPerfil, name='perfil'),
+    path('perfil/editar_perfil/', views.editarPerfil, name='editar_perfil'),
+    
 #Secciones menu gestion educativa
     path('niveles_educativos/', vistaNivelEducativo, name='nivel_educativo'),
     path('niveles_educativos/crear_nivel/', views.crearNivelEducativo, name='crear_nivel_educativo'),
@@ -44,7 +49,10 @@ urlpatterns = [
     path('docentes/', views.listaDocentes, name='lista_docentes'),
     path('docentes/asignar_docente/', views.asignarDocente, name='asignar_docente'),
     path('docentes/desasignar_docente/<int:pk>', views.desasignarDocente ,name='desasignar_docente'),
-    path('docentes/estado_docente/', views.estadoDocente,name='estado_docente'),# PENDIENTE ASIGNACION HASTA AHORA INUTIL
+    path('docentes/estado_docente/', views.estadoDocenteLista,name='estado_docente'),
+    path('docente/estado-docente/<int:pk>/', views.estadoDocente, name='estado_docente_pk'), #Activacion y desactivacion, DEFECTUOSO
+
 #SECCION ASIGNACION DE ESTUDIANTES A AULAS
     path('estudiantes/', views.listaEstudiantes, name='lista_estudiantes')
+    
 ]

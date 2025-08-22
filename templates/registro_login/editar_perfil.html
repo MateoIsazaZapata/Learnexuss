@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Editar perfil
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="h4 mb-4">Editar Perfil</h1>
+
+            <div class="alert alert-success" role="alert">
+                Mensaje de éxito
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <!-- Foto de perfil -->
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto de perfil</label>
+                    <input type="file" class="form-control" id="foto" name="foto">
+                    <div class="text-danger small">Error en la foto</div>
+                </div>
+
+                <!-- Vista previa de la foto actual -->
+                <div class="mb-4">
+                    <p class="text-muted">Foto actual:</p>
+                    <img src="ruta/a/la/foto.jpg" alt="Avatar" class="img-thumbnail" style="width: 112px; height: 112px; object-fit: cover;">
+                </div>
+
+                <!-- Correo electrónico (no editable) -->
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control bg-light" id="correo" name="correo" value="usuario@ejemplo.com" readonly>
+                    <div class="text-danger small">Error en el correo</div>
+                </div>
+
+                <!-- Tipo de Documento -->
+                <div class="mb-3">
+                    <label for="tipo_documento" class="form-label">Tipo de Documento</label>
+                    <select class="form-select" id="tipo_documento" name="tipo_documento">
+                        <option selected disabled>Seleccione una opción</option>
+                        <option value="cc">Cédula de Ciudadanía</option>
+                        <option value="ti">Tarjeta de Identidad</option>
+                    </select>
+                    <div class="text-danger small">Error en tipo de documento</div>
+                </div>
+
+                <!-- Número de Documento -->
+                <div class="mb-3">
+                    <label for="numero_documento" class="form-label">Número de Documento</label>
+                    <input type="text" class="form-control" id="numero_documento" name="numero_documento">
+                    <div class="text-danger small">Error en número de documento</div>
+                </div>
+
+                <!-- Municipio de expedición -->
+                <div class="mb-3">
+                    <label for="municipio_identificacion" class="form-label">Municipio de expedición</label>
+                    <select class="form-select" id="municipio_identificacion" name="municipio_identificacion">
+                    <option selected disabled>Seleccione un municipio</option>
+                    <option value="bello">Bello</option>
+                    <option value="medellin">Medellín</option>
+                    </select>
+                    <div class="text-danger small">Error en municipio</div>
+                </div>
+
+                <!-- Otros campos -->
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono">
+                    <div class="text-danger small">Error en teléfono</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion">
+                    <div class="text-danger small">Error en dirección</div>
+                </div>
+
+                <!-- Botones -->
+                <div class="mt-4 d-flex gap-3">
+                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                    <a href="#" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

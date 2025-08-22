@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Perfil del Usuario
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mb-3" style="max-width: 950px;">
+        <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{% static 'pictures/OIP.webp' %}" class="img-fluid rounded-start" alt="foto de perfil">
+                </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title">Rol de usuario personal</h5>
+                        <p class="card-text">Nombres del usuario: <span> contenedor contenedor </span></p> 
+                        <p class="card-text">Apellidos del usuario: <span> contenedor contenedor </span></p> 
+                        <p class="card-text">Correo electronico: <span> contenedor </span></p> 
+                        <p class="card-text">Numero de contacto 1: <span>contenedor</span></p>
+                        <p class="card-text">Numero de contacto 2: <span>contenedor</span></p>
+                        <p class="card-text">Descripcion: <span>contenedor tipo textfield </span></p>
+                        <p class="card-text">Descripcion: <span>contenedor tipo textfield </span></p>
+                        
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <h5 class="card-title">Rol de usuario profesional</h5>
+                        <p class="card-text">Formacion academica: <span>contenedor</span></p>
+                        <p class="card-text">Titulo profesional: <span>contenedor</span></p>
+                        <p class="card-text">Titulo de posgrado: <span>contenedor</p>
+                        <p class="card-text">Experiencia en el cargo: <span>contenedor</span></p>
+                        <p class="card-text">Nivel educativo en el que se especializa</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Tabla de aulas y asignaturas que le corresponden al docente-->
+<div class="container mt-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </  thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>John</td>
+                <td>Doe</td>
+                <td>@social</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

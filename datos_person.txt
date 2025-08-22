@@ -1,0 +1,33 @@
+Datos a solitar a usuarios:
+datos ya asignados(tipo de documento, numero de documento, rol, correo electronico, contraseña)
+
+
+PERFIL DEL DOCENTE O COORDINADOR:
+- Primer Nombre
+- Segundo Nombre
+- Primer apellido
+- Segundo apellido
+- Municipio de expedicion de documento
+- Departamento de expedicion de documento
+- Fecha de nacimiento
+- Datos de contacto (Numeros de telefonicos y celulares)
+- Breve descipcion de perfil(Habilidades blandas, Que motiva a enseñar o ejercer el cargo, Material o plataformas complementarias, horarios de atencion,  ) 
+
+Vocacion profesional:
+- Formacion academica y profesional
+- Tiempo que ejerce el cargo
+- Nivel educativo en el que se especializa
+- Fotografia legible
+
+
+PERFIL ESTUDIANTE/ACUDIENTE
+- Primer Nombre
+- Segundo Nombre
+- Primer apellido
+- Segundo apellido
+- Fotografía (opcional según la política de la institución)
+- Grado y grupo
+- Número de matrícula / código institucional (OPCIONAL)
+- Promedio general o estado académico
+- asignaturas que cursa
+- aula a la que pertenece

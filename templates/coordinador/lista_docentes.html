@@ -14,8 +14,11 @@
         <div class="col-md-8">
             <div class="bg-white p-3 rounded shadow-sm table-responsive">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="fw-bold">Lista de docentes</h2>
-                    <a href="#" class="btn btn-success fw-bold data-bs-toggle=" data-bs-toggle="modal" data-bs-target="#modalAsignarDocente">Asignar Docente</a>
+                    <h2 class="fw-bold">Lista de docentes asignados</h2>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'estado_docente' %}" class="btn btn-success fw-bold"">Estado Docente</a>
+                        <a href="#" class="btn btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#modalAsignarDocente">Asignar Docente</a>
+                    </div>
                 </div>
                     {% if not asignados %}
                             <h1>No hay docentes registrados</h1>
@@ -91,34 +94,6 @@
     </div>
 </div>
 
-<!-- modal estado de docente -->
-
-<!-- <a href="#" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalEstadoDocente">Activo</a> -->
-
-<!-- <div class="modal" tabindex="-1" id="modalEstadoDocente">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Estado del docente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    <form method="POST" action="{% url 'estado_docente' %}">
-                    {% csrf_token %}
-                        <div>
-                        {{form}}
-                        {{form.as_p}}
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-success">Guardar</button>
-                        </div>
-                    </form>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
 <!--Modal de creacion de areas-->
 <div class="modal fade" id="modalAsignarDocente" tabindex="-1" aria-labelledby="tituloModalAsignarDocente" aria-hidden="true">
     <div class="modal-dialog">
@@ -132,31 +107,29 @@
             <div class="modal-body">
                 <form method="POST" action="{% url 'asignar_docente' %}">
                 {% csrf_token %}
-                <div class="mb-3">
-                    {{form.docente.label_tag}}
-                    {{form.docente}}
-                    {{form.docente.errors}}
-                    {{form.docente.success_message}}
-                </div>
-                <div>
-                    {{form.asignatura.label_tag}}
-                    {{form.asignatura}}
-                    {{form.asignatura.errors}}
-                    {{form.asignatura.success_message}}
-                </div>
-                <div>
-                    {{form.aula.label_tag}}
-                    {{form.aula}}
-                    {{form.aula.errors}}
-                    {{form.aula.success_message}}
-                </div>
+                    <div class="mb-3">
+                        {{ form_asignar.docente.label_tag }}
+                        {{ form_asignar.docente }}
+                        {{ form_asignar.docente.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_asignar.asignatura.label_tag }}
+                        {{ form_asignar.asignatura }}
+                        {{ form_asignar.asignatura.errors }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form_asignar.aula.label_tag }}
+                        {{ form_asignar.aula }}
+                        {{ form_asignar.aula.errors }}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="asignar_docente" class="btn btn-primary">Asignar</button>
+                    </div>
+                </form>
             </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Asignar</button>
-            </div>
-            </form>
+
         </div>
     </div>
 </div>

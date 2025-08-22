@@ -35,6 +35,13 @@ def VistaLogin(request):
     return render(request, 'login.html', {'form': form})
 
 #------------------INTERFAZ PRINCIPAL-------------------------
+#Gestion de perfil de usuario
+def vistaPerfil(request):
+    return render(request, 'perfil.html')
+
+def editarPerfil(request):
+    return render(request, 'editar_perfil.html')
+
 def home(request):
     form = aulaForm()
     aulas = Aula.objects.all()
@@ -228,18 +235,25 @@ def secc_asignaturas(request, pk):
 
 #Seccion lista de docentes
 def listaDocentes(request):
-    form = AsignacionDocenteForm()
+    form_asignar = AsignacionDocenteForm()
+    form_estado = EstadoDocenteForm()
     asignados = AsignarDocente.objects.select_related('docente', 'asignatura', 'aula').filter(docente__rol__rol='Docente')
-    return render(request, 'lista_docentes.html', {'asignados': asignados, 'form': form})
+    return render(request, 'lista_docentes.html', {'asignados': asignados, 'form_asignar': form_asignar, 'form_estado': form_estado})
+
+
+# def listaDocentes(request):
+#     form = AsignacionDocenteForm()
+#     asignados = AsignarDocente.objects.select_related('docente', 'asignatura', 'aula').filter(docente__rol__rol='Docente')
+#     return render(request, 'lista_docentes.html', {'asignados': asignados, 'form': form})
 
 #Seccion asignar docentes a asignaturas y aulas
 def asignarDocente(request):
-    form = AsignacionDocenteForm(request.POST or None)
-    if form.is_valid():
-        form.save()
+    form_asignar = AsignacionDocenteForm(request.POST or None)
+    if form_asignar.is_valid():
+        form_asignar.save()
         messages.success(request, 'Docente asignado exitosamente')
         return redirect('lista_docentes')
-    return render(request, 'asignar_docente.html', {'form': form})
+    return render(request, 'asignar_docente.html', {'form_asignar': form_asignar})
 
 #Seccion desasignar docente de asignatura y aula
 def desasignarDocente(request, pk):
@@ -249,19 +263,26 @@ def desasignarDocente(request, pk):
     return redirect('lista_docentes')
 
 #Seccion estado del docente
-def estadoDocente(request):
-    form = EstadoDocenteForm(request.POST or None)
+# vista solo para mostrar
+def estadoDocenteLista(request):
+    form = EstadoDocenteForm() #POSIBILIDAD PERO DEFECTUOSO
+    docentes = Usuario.objects.filter(rol__rol='Docente')
+    return render(request, 'estado_docente.html', {'docentes': docentes, 'form': form})
+
+# vista para actualizar
+def estadoDocente(request, pk): #DEFECTUOSO
+    docente = get_object_or_404(Usuario, pk=pk)
+    form = EstadoDocenteForm(request.POST or None, instance=docente)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Estado del docente actualizado exitosamente')
-        return redirect('lista_docentes')
-    return render(request, 'lista_docentes.html', {'form': form})
-        
+        messages.success(request, f"Estado cambiado correctamente")
+    return redirect('estado_docente')
+
 #------------------SECCION DE ESTUDIANTES----------------------
 #Seccion lista estudiantes
 def listaEstudiantes(request):
-    # estudiantes = Usuario.objects.filter(rol__rol='Estudiante')
-    return render(request, 'lista_estudiantes.html')
+    estudiantes = Usuario.objects.filter(rol__rol='Estudiante')
+    return render(request, 'lista_estudiantes.html', {'estudiantes': estudiantes})
 
 # Nota mental:
 #     Las secciones como nivel educativo, grado, areas, temas y plan de leccion son
