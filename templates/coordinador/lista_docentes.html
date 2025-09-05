@@ -41,7 +41,7 @@
                                         {% if i.docente.primer_nombre == None and i.docente.primer_apellido == None%}
                                             <span class="text-danger">Pendiente</span> 
                                         {% else %}
-                                            {{ i.primer_nombre }} {{i.primer_apellido}}
+                                            <span> {{ i.docente.primer_nombre }} {{i.docente.primer_apellido}} </span>
                                         {% endif %}
                                     </td>
                                     <td>{{ i.docente.email }}</td>

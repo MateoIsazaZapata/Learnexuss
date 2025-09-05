@@ -126,6 +126,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# LOCALIZACION DE LOGUEO DE USUARIOS
+LOGIN_URL = '/learnexuss/login/'
+LOGIN_REDIRECT_URL = '/learnexuss/home/'
+LOGOUT_REDIRECT_URL = '/learnexuss/login/'
+
+#LIMITE DE TIEMPO DE LOGIN:
+SESSION_COOKIE_AGE = 300 # 5 minutos en segundos
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

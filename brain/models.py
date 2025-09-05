@@ -9,11 +9,11 @@ from django.utils import timezone
 #------------------SECCION DE CREACION Y REGISTRO DE USUARIO----------
 # DATOS BASE DE REGISTRO (ABSTRACTO)
 class UsuarioBase(models.Model):
-    primer_nombre = models.CharField(max_length=30)
+    primer_nombre = models.CharField(max_length=30, null=True, blank=True)
     segundo_nombre = models.CharField(max_length=30, blank=True)
-    primer_apellido = models.CharField(max_length=30)
-    segundo_apellido = models.CharField(max_length=30)
-    fecha_nacimiento = models.DateField()
+    primer_apellido = models.CharField(max_length=30, null=True, blank=True)
+    segundo_apellido = models.CharField(max_length=30, null=True, blank=True)
+    fecha_nacimiento = models.DateField(null=True, blank=True)
     
     class Meta:
         abstract = True
@@ -40,7 +40,7 @@ class UsuarioManager(BaseUserManager):
         return self.crear_usuario(email, password, **extra_fields)
 
 # DATOS PRINCIPALES DE VALIDACION DE USUARIO
-class Usuario(AbstractBaseUser, PermissionsMixin):
+class Usuario(UsuarioBase, AbstractBaseUser, PermissionsMixin):
     rol = models.ForeignKey('Rol', on_delete=models.PROTECT)
     email = models.EmailField(unique=True)
     
@@ -209,3 +209,18 @@ class AsignarDocente(models.Model):
         
     def __str__(self):
         return f"{self.docente} - {self.asignatura} ({self.aula})"
+
+#HOJA DE VIDA DOCENTE
+class HojaDeVidaDocente(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='hoja_de_vida')
+    municipio_expedicion = models.ForeignKey(Ciudad, on_delete=models.PROTECT, null=True)
+    numero_contacto_1 = models.CharField(max_length=15, blank=True)
+    numero_contacto_2 = models.CharField(max_length=15, blank=True)
+    direccion_residencia_1 = models.CharField(max_length=100, blank=True)
+    direccion_residencia_2 = models.CharField(max_length=100, blank=True)
+    descripcion = models.TextField(blank=True)
+    formacion_academica = models.TextField(blank=True)
+    formacion_profesional = models.TextField(blank=True)
+    formacion_adicional = models.TextField(blank=True)
+    experiencia_en_el_cargo = models.TextField(blank=True)
+    nivel_educativo_especializa = models.TextField(blank=True)

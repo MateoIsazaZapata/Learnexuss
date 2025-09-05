@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from .models import Usuario, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema, Aula, AsignarDocente
+from .models import Usuario, NivelEducativo, Area, Asignatura, Grado, Grupo, PlanDeLeccion, Tema, Aula, AsignarDocente, HojaDeVidaDocente
 
 
 #Formulario para registro y logueo de usuarios
@@ -225,5 +225,98 @@ class EstadoDocenteForm(forms.ModelForm): #DEFECTUOSO
                 'class': 'form-check-input',
                 'role': 'switch',
                 'id': 'switchDocente'
+            }),
+        }
+        
+
+class UsuarioBasicForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido', 'rol', 'email', 'tipo_documento', 'numero_documento']
+        widgets = {
+            'primer_nombre': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm'
+            }),
+            
+            'segundo_nombre': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm'
+            }),
+            
+            'primer_apellido': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm'
+            }),
+            
+            'segundo_apellido': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm'
+            }),
+            
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm', 'readonly': 'readonly'
+            }),
+            
+            'tipo_documento': forms.Select(attrs={
+                'class': 'form-select bg-light border-0 shadow-sm', 'readonly': 'readonly'
+            }),
+            
+            'numero_documento': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm', 'readonly': 'readonly'
+            }),
+            
+            'rol': forms.Select(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm', 'readonly': 'readonly'
+            }),
+            
+            
+        }
+
+class HojaDeVidaDocenteForm(forms.ModelForm):
+    class Meta:
+        model = HojaDeVidaDocente
+        fields =['municipio_expedicion','numero_contacto_1', 'numero_contacto_2', 'direccion_residencia_1', 'direccion_residencia_2', 'descripcion', 'formacion_academica', 'formacion_profesional', 'formacion_adicional', 'experiencia_en_el_cargo', 'nivel_educativo_especializa']
+        
+        widgets = {
+            'municipio_expedicion' : forms.Select(attrs={
+                'class': 'form-select'
+            }),
+            
+            'numero_contacto_1': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+            }),
+            'numero_contacto_2': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+            }),
+            'direccion_residencia_1': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+            }),
+            'direccion_residencia_2': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+            }),
+            'descripcion': forms.Textarea(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+                'rows': 12,
+                'cols': 60,
+            }),
+            'formacion_academica': forms.Textarea(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+                'rows': 12,
+                'cols': 60
+            }),
+            'formacion_profesional': forms.Textarea(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+                'rows': 12,
+                'cols': 60
+            }),
+            'formacion_adicional': forms.Textarea(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+                'rows': 12,
+                'cols': 60
+            }),
+            'experiencia_en_el_cargo': forms.Textarea(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
+                'rows': 12,
+                'cols': 60
+            }),
+            'nivel_educativo_especializa': forms.TextInput(attrs={
+                'class': 'form-control bg-light border-0 shadow-sm',
             }),
         }

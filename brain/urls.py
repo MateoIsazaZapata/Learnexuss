@@ -2,13 +2,14 @@ from .models import Usuario, Pais, Departamento, Ciudad, Rol, TipoDocumento
 from django.contrib.auth.decorators import login_required
 from django.urls import path, include
 from .views import home, vistaNivelEducativo, vistaGrados, vistaGrupos, vistaAreas, vistaAsignaturas, vistaTemas, vistaPlanesLeccion, secc_aula
-from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro, asignarDocente, desasignarDocente, estadoDocente, listaEstudiantes, vistaPerfil, editarPerfil
+from .views import crearNivelEducativo, eliminarNivelEducativo, eliminarGrados, crearGrupos, crearAreas, eliminarArea, crearAsignaturas, eliminarAsignatura, crearTemas, eliminarTemas, crearPlanDeLeccion, eliminarPlanDeLeccion, crearAula, eliminarAula, desasignarAsignatura, vistaRegistro, asignarDocente, desasignarDocente, estadoDocente, listaEstudiantes, vistaPerfil, editarPerfil, vistaLogout
 from . import views 
 
 urlpatterns = [
 #Seccion registro y login
     path('registro/', views.vistaRegistro, name='registro'),
     path('login/', views.VistaLogin, name='login'),
+    path('logout/', views.vistaLogout, name= 'logout'),
 
 #Seccion principal Aulas
     path('home/', home, name='home'),

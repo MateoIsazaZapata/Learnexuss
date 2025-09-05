@@ -1,78 +1,119 @@
 {% extends "base.html" %}
-
 {% load static %}
 
-{% block title %}
-    Perfil del Usuario
-{% endblock title %}
+{% block title %} Editar perfil {% endblock title %}
 
 {% block content %}
 <div class="container mt-5">
-    <div class="card mb-3" style="max-width: 950px;">
-        <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="{% static 'pictures/OIP.webp' %}" class="img-fluid rounded-start" alt="foto de perfil">
+    <h1 class="fw-bold text-center mb-4">Editar Perfil</h1>
+
+    <div class="card shadow-sm p-4">
+            <!-- Foto -->
+            <div class="text-center mb-4">
+                <p class="text-muted">Foto:</p>
+                    <img src="{% static 'pictures/OIP.webp' %}" class="mg-thumbnail" width="150" alt="Foto de perfil">
+            </div>
+
+            <hr>
+            <h4 class="mb-3 text-primary">Datos personales</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Correo electrónico</label>
+                    <span class="form-control">{{ usuario.email }}</span>
                 </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <div>
-                        <h5 class="card-title">Rol de usuario personal</h5>
-                        <p class="card-text">Nombres del usuario: <span> contenedor contenedor </span></p> 
-                        <p class="card-text">Apellidos del usuario: <span> contenedor contenedor </span></p> 
-                        <p class="card-text">Correo electronico: <span> contenedor </span></p> 
-                        <p class="card-text">Numero de contacto 1: <span>contenedor</span></p>
-                        <p class="card-text">Numero de contacto 2: <span>contenedor</span></p>
-                        <p class="card-text">Descripcion: <span>contenedor tipo textfield </span></p>
-                        <p class="card-text">Descripcion: <span>contenedor tipo textfield </span></p>
-                        
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Rol</label>
+                    <span class="form-control">{{ usuario.rol }}</span>
+                </div>
+            </div>
+
+        <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Primer nombre</label>
+                    <span class="form-control">{{ usuario.primer_nombre }}</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Segundo nombre</label>
+                    <span class="form-control">{{ usuario.segundo_nombre }}</span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Primer apellido</label>
+                        <span class="form-control">{{ usuario.primer_apellido }}</span>
                     </div>
-                    <br>
-                    <br>
-                    <div>
-                        <h5 class="card-title">Rol de usuario profesional</h5>
-                        <p class="card-text">Formacion academica: <span>contenedor</span></p>
-                        <p class="card-text">Titulo profesional: <span>contenedor</span></p>
-                        <p class="card-text">Titulo de posgrado: <span>contenedor</p>
-                        <p class="card-text">Experiencia en el cargo: <span>contenedor</span></p>
-                        <p class="card-text">Nivel educativo en el que se especializa</p>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Segundo apellido</label>
+                        <span class="form-control">{{ usuario.segundo_apellido }}</span>
                     </div>
                 </div>
+                    
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Tipo Documento</label>
+                    <span class="form-control">{{ usuario.tipo_documento }}</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Numero de Documento</label>
+                    <span class="form-control">{{ usuario.numero_documento }}</span>
+                </div>
+                <div class="col-md-6 mb-3 text-center">
+                    <label class="form-label">Municipio de expedicion</label>
+                    <span class="form-control">{{ hoja_de_vida.municipio_expedicion }}</span>
+                </div>
+
+            <hr>
+            <h4 class="mb-3 text-primary">Contacto y Dirección</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Número de contacto 1</label>
+                    <span class="form-control">{{ hoja_de_vida.numero_contacto_1 }}</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Número de contacto 2</label>
+                    <span class="form-control">{{ hoja_de_vida.numero_contacto_2 }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Dirección 1</label>
+                    <span class="form-control">{{ hoja_de_vida.direccion_residencia_1 }}</span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Dirección 2</label>
+                    <span class="form-control">{{ hoja_de_vida.direccion_residencia_2 }}</span>
+                </div>
+            </div>
+
+            <hr>
+            <h4 class="mb-3 text-primary">Perfil profesional</h4>
+            <div class="mb-3">
+                <label class="form-label">¿Por qué soy maestro?</label>
+                <span class="form-control">{{ hoja_de_vida.descripcion }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formación académica</label>
+                <span class="form-control">{{ hoja_de_vida.formacion_academica }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formación profesional</label>
+                <span class="form-control">{{ hoja_de_vida.formacion_profesional }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formación adicional</label>
+                <span class="form-control">{{ hoja_de_vida.formacion_adicional }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Experiencia en el cargo</label>
+                <span class="form-control">{{ hoja_de_vida.experiencia_en_el_cargo }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nivel educativo en el que se especializa</label>
+                <span class="form-control">{{ hoja_de_vida.nivel_educativo_especializa }}</span>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{% url 'editar_perfil' %}" class="btn btn-success">Editar perfil</a>
             </div>
         </div>
     </div>
-</div>
-
-<!--Tabla de aulas y asignaturas que le corresponden al docente-->
-<div class="container mt-5">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-            </tr>
-        </  thead>
-        <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>John</td>
-                <td>Doe</td>
-                <td>@social</td>
-            </tr>
-        </tbody>
-    </table>
 </div>
 {% endblock content %}

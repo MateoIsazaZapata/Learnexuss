@@ -1,91 +1,128 @@
 {% extends "base.html" %}
-
 {% load static %}
 
-{% block title %}
-    Editar perfil
-{% endblock title %}
+{% block title %} Editar perfil {% endblock title %}
 
 {% block content %}
 <div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <h1 class="h4 mb-4">Editar Perfil</h1>
+    <h1 class="fw-bold text-center mb-4">Editar Perfil</h1>
 
-            <div class="alert alert-success" role="alert">
-                Mensaje de éxito
+    <form method="POST" action="{% url 'editar_perfil' %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        
+        <div class="card shadow-sm p-4">
+            <!-- Foto -->
+            <div class="text-center mb-4">
+                <p class="text-muted">Foto:</p>
+                {% if usuario.foto %}
+                    <img src="{% static 'pictures/logo_not_found.png' %}" class="img-thumbnail" width="150" alt="Foto de perfil">
+                {% else %}
+                    <img src="{% static 'pictures/OIP.webp' %}" class="mg-thumbnail" width="150" alt="Foto de perfil">
+                {% endif %}
             </div>
 
-            <form method="post" enctype="multipart/form-data">
-                <!-- Foto de perfil -->
-                <div class="mb-3">
-                    <label for="foto" class="form-label">Foto de perfil</label>
-                    <input type="file" class="form-control" id="foto" name="foto">
-                    <div class="text-danger small">Error en la foto</div>
+            <hr>
+            <h4 class="mb-3 text-primary">Datos personales</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Correo electrónico</label>
+                    <span>{{ usuario_form.email }}</span>
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Rol</label>
+                    <span> {{ usuario_form.rol }} </span>
+                </div>
+            </div>
 
-                <!-- Vista previa de la foto actual -->
-                <div class="mb-4">
-                    <p class="text-muted">Foto actual:</p>
-                    <img src="ruta/a/la/foto.jpg" alt="Avatar" class="img-thumbnail" style="width: 112px; height: 112px; object-fit: cover;">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Primer nombre</label>
+                    <span disabled>{{ usuario_form.primer_nombre }}</span>
                 </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Segundo nombre</label>
+                    {{ usuario_form.segundo_nombre }}
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tipo Documento</label>
+                    <span> {{ usuario_form.tipo_documento }}</span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Numero de Documento</label>
+                    {{ usuario_form.numero_documento }}
+                </div>
+                <div>
+                    <label class="form-label">Municipio de expedicion</label>
+                    {{ hoja_form.municipio_expedicion }}
+                </div>
+            </div>
 
-                <!-- Correo electrónico (no editable) -->
-                <div class="mb-3">
-                    <label for="correo" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control bg-light" id="correo" name="correo" value="usuario@ejemplo.com" readonly>
-                    <div class="text-danger small">Error en el correo</div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Primer apellido</label>
+                    {{ usuario_form.primer_apellido }}
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Segundo apellido</label>
+                    {{ usuario_form.segundo_apellido }}
+                </div>
+            </div>
 
-                <!-- Tipo de Documento -->
-                <div class="mb-3">
-                    <label for="tipo_documento" class="form-label">Tipo de Documento</label>
-                    <select class="form-select" id="tipo_documento" name="tipo_documento">
-                        <option selected disabled>Seleccione una opción</option>
-                        <option value="cc">Cédula de Ciudadanía</option>
-                        <option value="ti">Tarjeta de Identidad</option>
-                    </select>
-                    <div class="text-danger small">Error en tipo de documento</div>
+            <hr>
+            <h4 class="mb-3 text-primary">Contacto y Dirección</h4>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Número de contacto 1</label>
+                    {{ hoja_form.numero_contacto_1 }}
                 </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Número de contacto 2</label>
+                    {{ hoja_form.numero_contacto_2 }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Dirección 1</label>
+                    {{ hoja_form.direccion_residencia_1 }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Dirección 2</label>
+                    {{ hoja_form.direccion_residencia_2 }}
+                </div>
+            </div>
 
-                <!-- Número de Documento -->
-                <div class="mb-3">
-                    <label for="numero_documento" class="form-label">Número de Documento</label>
-                    <input type="text" class="form-control" id="numero_documento" name="numero_documento">
-                    <div class="text-danger small">Error en número de documento</div>
-                </div>
+            <hr>
+            <h4 class="mb-3 text-primary">Perfil profesional</h4>
+            <div class="mb-3">
+                <label class="form-label">¿Por qué soy maestro?</label>
+                {{ hoja_form.descripcion }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formación académica</label>
+                {{ hoja_form.formacion_academica }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formación profesional</label>
+                {{ hoja_form.formacion_profesional }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formación adicional</label>
+                {{ hoja_form.formacion_adicional }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Experiencia en el cargo</label>
+                {{ hoja_form.experiencia_en_el_cargo }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nivel educativo en el que se especializa</label>
+                {{ hoja_form.nivel_educativo_especializa }}
+            </div>
 
-                <!-- Municipio de expedición -->
-                <div class="mb-3">
-                    <label for="municipio_identificacion" class="form-label">Municipio de expedición</label>
-                    <select class="form-select" id="municipio_identificacion" name="municipio_identificacion">
-                    <option selected disabled>Seleccione un municipio</option>
-                    <option value="bello">Bello</option>
-                    <option value="medellin">Medellín</option>
-                    </select>
-                    <div class="text-danger small">Error en municipio</div>
-                </div>
-
-                <!-- Otros campos -->
-                <div class="mb-3">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono">
-                    <div class="text-danger small">Error en teléfono</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="direccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion">
-                    <div class="text-danger small">Error en dirección</div>
-                </div>
-
-                <!-- Botones -->
-                <div class="mt-4 d-flex gap-3">
-                    <button type="submit" class="btn btn-success">Guardar Cambios</button>
-                    <a href="#" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{% url 'home' %}" class="btn btn-secondary me-2">Cancelar</a>
+                <button type="submit" class="btn btn-success">Guardar cambios</button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock content %}

@@ -75,10 +75,9 @@
                                                     <form method="POST" action="{% url 'estado_docente_pk' i.id %}">
                                                         {% csrf_token %}
                                                         <div class="form-check form-switch">
-                                                            <h2>aca se deberia de ver el checkbox</h2>
-                                                            {{ i.form.is_active.label_tag }}
-                                                            {{ i.form.is_active }}
-                                                            {{ i.form.is_active.errors }}
+                                                            {{ form.is_active.label_tag }}
+                                                            {{ form.is_active }}
+                                                            {{ form.is_active.errors }}
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
